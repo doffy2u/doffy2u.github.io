@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Arena // Portfolio</title>
+    <style>
+        /* --- HYPER-BLASTED NEON VARIABLE MATRIX --- */
+        :root {
+            --bg: #030305;
+            --panel: #09090f;
+            --neon-pink: #ff0055;
+            --neon-cyan: #00f3ff;
+            --neon-purple: #9d00ff;
+            --text-main: #f5f5fa;
+            --text-sub: #5c5f68;
+            --border: rgba(255, 255, 255, 0.04);
+            --glow-pink: 0 0 20px rgba(255, 0, 85, 0.6), 0 0 40px rgba(255, 0, 85, 0.2);
+            --glow-cyan: 0 0 20px rgba(0, 243, 255, 0.6), 0 0 40px rgba(0, 243, 255, 0.2);
+            --glow-purple: 0 0 20px rgba(157, 0, 255, 0.6);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(157, 0, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(0, 243, 255, 0.05) 0%, transparent 40%);
+        }
+
+        /* --- ORGANIC CURSOR FLUID --- */
+        #cursor-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--neon-cyan);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            box-shadow: var(--glow-cyan);
+        }
+
+        .venom-drop {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: var(--neon-pink);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            box-shadow: var(--glow-pink);
+            animation: meltDown 0.35s ease-out forwards;
+        }
+
+        @keyframes meltDown {
+            0% { transform: translate(-50%, -50%) scale(1.8); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(0); opacity: 0; filter: blur(4px); }
+        }
+
+        /* --- STRUCTURAL SILHOUETTE NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9000;
+            background: rgba(9, 9, 15, 0.85);
+            backdrop-filter: blur(30px);
+            border: 1px solid var(--border);
+            padding: 12px 30px;
+            border-radius: 40px;
+            display: flex;
+            gap: 25px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,255,255,0.05);
+            width: max-content;
+            max-width: 90%;
+        }
+
+        nav a {
+            color: var(--text-sub);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        nav a:hover {
+            color: var(--neon-cyan);
+            filter: drop-shadow(0 0 10px var(--neon-cyan));
+            transform: scale(1.25);
+        }
+
+        nav svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+        }
+
+        /* --- HEADER WITH STRIPPED DOWN SIZE & HIGH-END ANIMATIONS --- */
+        header {
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 8%;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .typewriter-wrapper {
+            display: inline-block;
+            overflow: hidden;
+            border-right: 3px solid var(--neon-cyan);
+            white-space: nowrap;
+            margin-bottom: 10px;
+            animation: 
+                typing 2.5s steps(30, end),
+                blink-caret 0.75s step-end infinite;
+        }
+
+        .glowing-name span {
+            font-size: 2.8rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            color: var(--text-main);
+            animation: letterGlow 4s infinite ease-in-out;
+        }
+
+        @media(min-width: 768px) {
+            header { padding: 0 12%; }
+            .glowing-name span { font-size: 3.5rem; }
+        }
+
+        /* Stagger steps dynamically across letters */
+        .glowing-name span:nth-child(1) { animation-delay: 0.1s; }
+        .glowing-name span:nth-child(2) { animation-delay: 0.2s; }
+        .glowing-name span:nth-child(3) { animation-delay: 0.3s; }
+        .glowing-name span:nth-child(4) { animation-delay: 0.4s; }
+        .glowing-name span:nth-child(5) { animation-delay: 0.5s; }
+        .glowing-name span:nth-child(6) { animation-delay: 0.6s; }
+        .glowing-name span:nth-child(7) { animation-delay: 0.7s; }
+        .glowing-name span:nth-child(8) { animation-delay: 0.8s; }
+        .glowing-name span:nth-child(9) { animation-delay: 0.9s; }
+        .glowing-name span:nth-child(10) { animation-delay: 1.0s; }
+        .glowing-name span:nth-child(11) { animation-delay: 1.1s; }
+        .glowing-name span:nth-child(12) { animation-delay: 1.2s; }
+
+        @keyframes typing { from { width: 0 } to { width: 100% } }
+        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--neon-cyan); filter: drop-shadow(var(--glow-cyan)); } }
+        @keyframes letterGlow { 0%, 100% { color: var(--text-main); text-shadow: none; } 50% { color: var(--neon-pink); text-shadow: var(--glow-pink); } }
+
+        header p {
+            font-size: 1.1rem;
+            color: var(--text-sub);
+            max-width: 500px;
+            margin-top: 10px;
+        }
+
+        section {
+            padding: 80px 8%;
+            border-top: 1px solid var(--border);
+        }
+
+        @media(min-width: 768px) {
+            section { padding: 100px 12%; }
+        }
+
+        section h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 40px;
+            letter-spacing: -1px;
+            position: relative;
+            display: inline-block;
+        }
+
+        section h2::after {
+            content: '';
+            position: absolute;
+            left: 0; bottom: -6px;
+            width: 40px; height: 2px;
+            background: var(--neon-purple);
+            box-shadow: var(--glow-purple);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            padding: 30px;
+            border-radius: 16px;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .card:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: var(--glow-cyan);
+            transform: scale(1.02);
+        }
+
+        .card h3 { margin-bottom: 12px; font-size: 1.3rem; }
+        .card p { color: var(--text-sub); font-size: 0.95rem; }
+
+        .lab-container {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+        }
+
+        @media(min-width: 768px) {
+            .lab-container { padding: 45px; }
+        }
+
+        /* --- SAFE SPATIAL BOX ZONE FOR IMPOSSIBLE TARGET GAME --- */
+        .clicker-box {
+            background: #020204;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 25px;
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #game-stats {
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            z-index: 10;
+            white-space: nowrap;
+        }
+
+        /* Spawn Range boundaries inside absolute container */
+        #spawn-arena-zone {
+            position: absolute;
+            top: 60px;   /* Below top stats row */
+            bottom: 90px; /* Safely above lower engine button */
+            left: 10px;
+            right: 10px;
+            pointer-events: none;
+        }
+
+        #target-orb {
+            width: 65px;
+            height: 65px;
+            background: var(--neon-cyan);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            box-shadow: var(--glow-cyan);
+            transition: all 0.12s cubic-bezier(0.075, 0.82, 0.165, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 0.85rem;
+            color: #000;
+            user-select: none;
+            pointer-events: auto; /* Re-enable pointer logic */
+            z-index: 5;
+        }
+
+        #boot-btn-wrapper {
+            z-index: 10;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* --- INPUTS & INTERACTIVE BUTTON MATRICES --- */
+        input[type="text"] {
+            background: #020204;
+            border: 1px solid var(--border);
+            color: #fff;
+            padding: 16px;
+            border-radius: 10px;
+            font-size: 1rem;
+            width: 100%;
+            margin-bottom: 20px;
+            outline: none;
+        }
+        input[type="text"]:focus { border-color: var(--neon-pink); box-shadow: var(--glow-pink); }
+
+        button {
+            background: var(--text-main);
+            color: #000;
+            border: none;
+            padding: 15px 32px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        button:hover { background: var(--neon-pink); color: #fff; box-shadow: var(--glow-pink); transform: translateY(-2px); }
+
+        .options-column { display: flex; flex-direction: column; gap: 12px; margin: 25px 0; }
+        
+        .option-node {
+            background: rgba(255,255,255,0.01);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 16px;
+            border-radius: 10px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .option-node:hover { border-color: rgba(255,255,255,0.15); background: rgba(255,255,255,0.02); }
+        .option-node.selected-node { background: var(--neon-purple); border-color: var(--neon-purple); box-shadow: var(--glow-purple); }
+
+        .puzzle-box {
+            background: #020204;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 1.8rem;
+            letter-spacing: 6px;
+            margin: 20px 0;
+            border: 1px dashed var(--border);
+            color: var(--neon-cyan);
+            text-shadow: var(--glow-cyan);
+        }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <div id="cursor-dot"></div>
+
+    <nav>
+        <a href="#">
+            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        </a>
+        <a href="#fun-dumb">
+            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+        </a>
+        <a href="#works">
+            <svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
+        </a>
+        <a href="#experience">
+            <svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg>
+        </a>
+        <a href="#quiz-labs">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 16h-2v-2h2v2zm1.07-7.75l-.9.92C12.45 11.9 12 12.5 12 14h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/></svg>
+        </a>
+    </nav>
+
+    <header>
+        <div class="typewriter-wrapper">
+            <h1 class="glowing-name">
+                <span>B</span><span>O</span><span>G</span><span>D</span><span>A</span><span>N</span></h1>
+        </div>
+        <p>I got bored and happend make this ,maybe i'll showcase my work here or i'll delete this :) . while you are here - send me nudes.</p>
+    </header>
+
+    <section id="fun-dumb">
+        <h2>have some fun, dumb</h2>
+        <div class="lab-container">
+            <p style="color: var(--text-sub); margin-bottom: 20px;">Click that blue button as much as you can .
+            (if you get less than 50 - you owe me a booby pic)</p>
+            
+            <div class="clicker-box">
+                <div id="game-stats">
+                    CLOCK: <span id="timer-val" style="color:var(--neon-pink);">10</span>s | TOTAL HITS: <span id="score-val" style="color:var(--neon-cyan);">0</span>
+                </div>
+                
+                <div id="spawn-arena-zone">
+                    <div id="target-orb" onclick="registerTargetHit()">HIT</div>
+                </div>
+                
+                <div id="boot-btn-wrapper">
+                    <button onclick="startTargetGame()" style="background: transparent; border: 1.5px solid var(--neon-cyan); color: var(--neon-cyan); box-shadow: none;">START GAME</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="works">
+        <h2>Perwonal Works</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Yet to be named </h3>
+                <p>Im actually working my ass off on a project for the disabled people (fr) i'll get a button to know more about it somewhere here when i can actually call it a product.</p>
+            </div>
+            <div class="card">
+                <h3>Embedded Systems</h3>
+                <p>Custom embedded products , silly robotics and shits .ill get a link to that too when i complete making that website .</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <h2>Experience Track</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Trust Me Bruh</h3>
+                <p>:)</p>
+                <p style="margin-top: 10px;">fr.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="quiz-labs">
+        <h2>Check yo IQ nigga</h2>
+        <div class="lab-container">
+            
+            <div id="intro-view">
+                <h3>IQ Challenge for aah ppl</h3>
+                <p style="color: var(--text-sub); margin: 10px 0 25px 0;">Randomized 15-question evaluation testing logical strings and patterns.</p>
+                <input type="text" id="user-alias" placeholder="Enter your name...">
+                <button onclick="startUniqueQuiz()">START TEST</button>
+            </div>
+
+            <div id="quiz-view" class="hidden">
+                <div id="quiz-progress" style="font-size: 0.85rem; color: var(--neon-pink); margin-bottom: 10px; font-weight: 700;"></div>
+                <div id="quiz-text" style="font-size: 1.25rem; font-weight: 600; margin-bottom: 20px;"></div>
+                <div id="quiz-puzzle" class="puzzle-box hidden"></div>
+                <div id="quiz-options" class="options-column"></div>
+                <button id="next-btn" onclick="nextQuizStep()">NEXT QUESTION →</button>
+            </div>
+
+            <div id="results-view" class="hidden">
+                <h3>EVALUATION COMPLETED</h3>
+                <button id="calc-btn" onclick="revealViciousInsults()">Show how Dumb i am </button>
+                <div id="brutal-output" style="margin-top: 25px; line-height: 1.8;"></div>
+                <button id="retry-btn" class="hidden" onclick="resetAndRestartQuiz()" style="margin-top: 20px; background: transparent; border: 1px solid #fff; color: #fff;">PLAY AGAIN)</button>
+            </div>
+
+        </div>
+    </section>
+
+    <script>
+        /* --- LIQUID CURSOR TRACKER --- */
+        const cursorDot = document.getElementById('cursor-dot');
+        window.addEventListener('mousemove', (e) => {
+            cursorDot.style.left = e.clientX + 'px';
+            cursorDot.style.top = e.clientY + 'px';
+
+            if(Math.random() > 0.45) { 
+                const drop = document.createElement('div');
+                drop.classList.add('venom-drop');
+                drop.style.left = e.clientX + 'px';
+                drop.style.top = e.clientY + 'px';
+                document.body.appendChild(drop);
+                setTimeout(() => drop.remove(), 350);
+            }
+        });
+
+        /* --- QUESTION POOL SHUFFLE ALGORITHMS --- */
+        const masterPool = [
+            { q: "Complete this sequence pattern calculation: 3, 5, 9, 17, ...", a: ["25", "33", "31", "29"], c: 1 },
+            { q: "Which shape does not match structural formatting trends?", a: ["Triangle", "Circle", "Cube", "Square"], c: 2 },
+            { q: "Identify the missing layout element in this visual string:", puzzle: "▲ 🔴 ■ ▲ 🔴 ?", a: ["▲", "■", "🔴", "◆"], c: 1 },
+            { q: "A bat and a ball cost $1.10 total. The bat costs $1.00 more than the ball. What is the ball worth?", a: ["$0.10", "$0.05", "$0.01", "$0.50"], c: 1 },
+            { q: "If all Bloops are Razzes and all Razzes are Snazzes, are all Bloops snazzes?", a: ["Yes", "No", "Uncertain", "None"], c: 0 },
+            { q: "Determine the missing string tail number: 2, 4, 8, 16, 32, ...", a: ["48", "64", "52", "128"], c: 1 },
+            { q: "Complete this direction shift puzzle sequence:", puzzle: "↑ → ↓ ← ?", a: ["↑", "→", "↓", "←"], c: 0 },
+            { q: "Divide 30 by half (0.5) and add 10. What is the total sum?", a: ["25", "70", "40", "60"], c: 1 },
+            { q: "Mary's father has 5 daughters: Nana, Nene, Nini, Nono. What is the 5th daughter's name?", a: ["Nunu", "Nany", "Mary", "Nela"], c: 2 },
+            { q: "Which letter completes this geometric sequence string? A, C, E, G, ...", a: ["H", "I", "J", "K"], c: 1 },
+            { q: "A farmer has 17 sheep. All but 9 of them die. How many living sheep remain?", a: ["8", "9", "0", "11"], c: 1 },
+            { q: "Solve for the missing balance system value:", puzzle: "▲ + ▲ = 10 | ▲ * ■ = 15 | ■ = ?", a: ["2", "3", "5", "1"], c: 1 },
+            { q: "Which math fraction breaks out as globally the largest value?", a: ["1/2", "3/4", "5/8", "7/12"], c: 1 },
+            { q: "What metric registers steady linear growth over time but never decreases?", a: ["Height", "Your age", "Weights", "Data logs"], c: 1 },
+            { q: "If yesterday was Friday, what day is the exact day after tomorrow?", a: ["Monday", "Sunday", "Tuesday", "Saturday"], c: 1 }
+        ];
+
+        let activeQuizQuestions = [];
+        let quizIdx = 0;
+        let runningScore = 0;
+        let selectedNodeIdx = null;
+        let userAlias = "";
+
+        function startUniqueQuiz() {
+            userAlias = document.getElementById('user-alias').value.trim() || "Waste of Space";
+            let poolCopy = [...masterPool];
+            for (let i = poolCopy.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [poolCopy[i], poolCopy[j]] = [poolCopy[j], poolCopy[i]];
+            }
+            activeQuizQuestions = poolCopy.slice(0, 15);
+            quizIdx = 0;
+            runningScore = 0;
+
+            document.getElementById('intro-view').classList.add('hidden');
+            document.getElementById('quiz-view').classList.remove('hidden');
+            renderQuizBlock();
+        }
+
+        function renderQuizBlock() {
+            selectedNodeIdx = null;
+            const item = activeQuizQuestions[quizIdx];
+            document.getElementById('quiz-progress').innerText = `DATA MODULE ${quizIdx + 1} / 15`;
+            document.getElementById('quiz-text').innerText = item.q;
+            
+            const puzzleFrame = document.getElementById('quiz-puzzle');
+            if(item.puzzle) {
+                puzzleFrame.innerText = item.puzzle;
+                puzzleFrame.classList.remove('hidden');
+            } else {
+                puzzleFrame.classList.add('hidden');
+            }
+
+            const box = document.getElementById('quiz-options');
+            box.innerHTML = "";
+            
+            item.a.forEach((opt, idx) => {
+                const b = document.createElement('button');
+                b.className = "option-node";
+                b.innerText = opt;
+                b.onclick = () => {
+                    document.querySelectorAll('.option-node').forEach(o => o.classList.remove('selected-node'));
+                    b.classList.add('selected-node');
+                    selectedNodeIdx = idx;
+                };
+                box.appendChild(b);
+            });
+        }
+
+        function nextQuizStep() {
+            if(selectedNodeIdx === null) return;
+            if(selectedNodeIdx === activeQuizQuestions[quizIdx].c) runningScore++;
+            
+            quizIdx++;
+            if(quizIdx < 15) {
+                renderQuizBlock();
+            } else {
+                document.getElementById('quiz-view').classList.add('hidden');
+                document.getElementById('results-view').classList.remove('hidden');
+            }
+        }
+
+        function revealViciousInsults() {
+            document.getElementById('calc-btn').classList.add('hidden');
+            const targetOutput = document.getElementById('brutal-output');
+            let reviewVerdict = "";
+            
+            if(runningScore <= 4) {
+                reviewVerdict = `Look at me, ${userAlias}. Your score of ${runningScore}/15 is an absolute catastrophe. A single-celled amoeba swimming backwards through mud possesses significantly sharper computational competence than whatever is rotting away inside your skull right now. Go find a tree, apologize to it for completely wasting the oxygen it worked so hard to create, and profoundly rethink every pathetic life decision you have ever made.`;
+            } else if(runningScore <= 10) {
+                reviewVerdict = `Congratulations, ${userAlias}. You scored ${runningScore}/15. You are the physical embodiment of unseasoned lukewarm water. So completely and utterly average that your entire existence could be replaced by a basic Excel script. Enjoy a life of mind-numbing mediocrity.`;
+            } else {
+                reviewVerdict = `Well, aren't you special, ${userAlias}. A score of ${runningScore}/15. Your neural synapses actually fired in a straight line today. Go feel smug and completely look down on everyone else today, you earned it.`;
+            }
+
+            targetOutput.innerHTML = `
+                <p style="font-size: 1.1rem; margin-bottom: 5px;"><strong>TARGET ID:</strong> ${userAlias}</p>
+                <p style="font-size: 1.1rem; margin-bottom: 20px;"><strong>METRIC ACCURACY:</strong> ${runningScore} / 15</p>
+                <p style="color: var(--neon-pink); font-weight: 600;">${reviewVerdict}</p>
+            `;
+            document.getElementById('retry-btn').classList.remove('hidden');
+        }
+
+        function resetAndRestartQuiz() {
+            document.getElementById('results-view').classList.add('hidden');
+            document.getElementById('brutal-output').innerHTML = "";
+            document.getElementById('calc-btn').classList.remove('hidden');
+            document.getElementById('retry-btn').classList.add('hidden');
+            startUniqueQuiz();
+        }
+
+        /* --- FIXED ANTI-OVERLAP BOUNDED ENGINE --- */
+        let gameHits = 0;
+        let countdownSecs = 10;
+        let gameTimerRef = null;
+        let isEngineRunning = false;
+
+        function startTargetGame() {
+            if(isEngineRunning) return;
+            isEngineRunning = true;
+            gameHits = 0;
+            countdownSecs = 10;
+            
+            document.getElementById('score-val').innerText = gameHits;
+            document.getElementById('timer-val').innerText = countdownSecs;
+            
+            gameTimerRef = setInterval(() => {
+                countdownSecs--;
+                document.getElementById('timer-val').innerText = countdownSecs;
+                
+                if(countdownSecs <= 0) {
+                    clearInterval(gameTimerRef);
+                    isEngineRunning = false;
+                    const orb = document.getElementById('target-orb');
+                    orb.style.top = "50%";
+                    orb.style.left = "50%";
+                    orb.style.transform = "translate(-50%, -50%)";
+                    orb.style.width = "65px";
+                    orb.style.height = "65px";
+                    alert(`TIME TERMINATED. Matrix tracked: ${gameHits} hits.`);
+                }
+            }, 1000);
+        }
+
+        function registerTargetHit() {
+            if(!isEngineRunning) return;
+            gameHits++;
+            document.getElementById('score-val').innerText = gameHits;
+            
+            const orb = document.getElementById('target-orb');
+            const arenaZone = document.getElementById('spawn-arena-zone');
+            
+            // Generate percentages based exactly on the isolated zone dimensions 
+            // to ensure it can never clip outside its allowed space.
+            const newX = Math.floor(Math.random() * 80) + 10; // 10% to 90% horizontal range
+            const newY = Math.floor(Math.random() * 80) + 10; // 10% to 90% vertical range within zone
+            
+            const dynamicSize = Math.floor(Math.random() * 25) + 40; // Size bounds from 40px to 65px
+            const randomOpacity = (Math.random() * 0.4) + 0.6;
+            
+            orb.style.left = `${newX}%`;
+            orb.style.top = `${newY}%`;
+            orb.style.transform = "translate(-50%, -50%)";
+            orb.style.width = `${dynamicSize}px`;
+            orb.style.height = `${dynamicSize}px`;
+            orb.style.opacity = randomOpacity;
+        }
+    </script>
+</body>
+</html>
