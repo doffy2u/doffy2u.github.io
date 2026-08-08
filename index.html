@@ -652,9 +652,17 @@
 
 music.volume = 0.35;
 
+function unlockMusic() {
+    music.play().then(() => {
+        document.removeEventListener("click", unlockMusic);
+        document.removeEventListener("touchstart", unlockMusic);
+    }).catch(() => {});
+}
+
 window.addEventListener("load", () => {
     music.play().catch(() => {
-        console.log("Autoplay blocked by browser.");
+        document.addEventListener("click", unlockMusic);
+        document.addEventListener("touchstart", unlockMusic);
     });
 });
     </script>
